@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Money River</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700&display=swap">
 <style>
@@ -16,6 +19,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-
  padding-block:max(24px,env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-bottom,0px));
  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 main{width:100%;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px 26px}
+.photo{display:block;width:100%;height:auto;max-height:300px;aspect-ratio:536/600;object-fit:cover;object-position:top;
+ border-radius:16px;background:#F6E7DA;margin:0 0 20px}
 .dots{display:flex;gap:7px;margin-bottom:20px}
 .dots span{width:14px;height:22px;border-radius:5px;background:var(--c)}
 h1{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:2rem;line-height:1.05;margin:0 0 .35rem}
@@ -33,6 +38,7 @@ button[disabled]{opacity:.6;cursor:progress}
 </head>
 <body>
 <main>
+  <img class="photo" src="couple.webp" width="536" height="600" alt="Sketch of Daniel and Komal from the wedding invite">
   <div class="dots" aria-hidden="true"><span style="--c:#E8803A"></span><span style="--c:#3D7DD8"></span><span style="--c:#E6476B"></span><span style="--c:#F2B53C"></span><span style="--c:#8E7CC3"></span><span style="--c:#2FA8A0"></span><span style="--c:#4C9F4A"></span></div>
   <h1>Money River</h1>
   <p class="sub">This page is private. Enter the password to open it.</p>
@@ -68,7 +74,8 @@ form.addEventListener('submit', async e => {
   msg.hidden = true; btn.disabled = true; btn.textContent = 'Unlocking\u2026';
   try {
     const html = await unlock(pw.value, DATA);
-    document.open(); document.write(html); document.close();
+    const icons = '<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">';
+    document.open(); document.write(html.replace(/<head>/i, '<head>' + icons)); document.close();
   } catch (err) {
     btn.disabled = false; btn.textContent = 'Open';
     say('That password did not work. Check it and try again.');
